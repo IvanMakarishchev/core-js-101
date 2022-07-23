@@ -53,9 +53,7 @@ function generateOdds(len) {
  *    [] => []
  */
 function doubleArray(arr) {
-  const len = arr.length;
-  arr.length = len * 2;
-  return arr.map((el, index) => (el !== undefined ? el : arr[index - len]));
+  throw new Error('Not implemented');
 }
 
 
