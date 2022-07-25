@@ -316,8 +316,34 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (!str.length) return true;
+  const strArr = str.split('');
+  const stack = [];
+  for (let i = 0; i < strArr.length; i += 1) {
+    if (strArr[i] === ']') {
+      if (stack[stack.length - 1] === '[') {
+        stack.pop();
+      } else return false;
+    }
+    if (strArr[i] === ')') {
+      if (stack[stack.length - 1] === '(') {
+        stack.pop();
+      } else return false;
+    }
+    if (strArr[i] === '}') {
+      if (stack[stack.length - 1] === '{') {
+        stack.pop();
+      } else return false;
+    }
+    if (strArr[i] === '>') {
+      if (stack[stack.length - 1] === '<') {
+        stack.pop();
+      } else return false;
+    }
+    if (strArr[i] === '[' || strArr[i] === '(' || strArr[i] === '{' || strArr[i] === '<') stack.push(strArr[i]);
+  }
+  return stack.length === 0;
 }
 
 
@@ -341,8 +367,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return Number(num.toString(n));
 }
 
 
