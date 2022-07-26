@@ -384,8 +384,18 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let startString = '';
+  const splittedPath = pathes.map((el) => el.split('/'));
+  for (let i = 0; i < splittedPath[0].length; i += 1) {
+    for (let k = 0; k < splittedPath.length; k += 1) {
+      if (!(splittedPath[k][i] === splittedPath[0][i])) {
+        return startString;
+      }
+    }
+    startString += `${splittedPath[0][i]}/`;
+  }
+  return startString;
 }
 
 
@@ -442,8 +452,21 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(pos) {
+  const resH = pos.map((el) => (el.length === 3 && el.every((e) => e === el[0])
+    ? el[0] : undefined)).filter((el) => el).join('');
+  if (resH !== '') return resH;
+  const rotArray = pos[0].map((el, index) => pos.map((row) => row[index]).reverse());
+  const resV = rotArray.map((el) => (el.length === 3 && el.every((e) => e === el[0])
+    ? el[0] : undefined)).filter((el) => el).join('');
+  if (resV !== '') return resV;
+  const resD1 = [pos[0][0], pos[1][1], pos[2][2]].every((el) => el === pos[0][0])
+    ? pos[0][0] : '';
+  if (resD1 !== '') return resD1;
+  const resD2 = [pos[2][0], pos[1][1], pos[0][2]].every((el) => el === pos[0][2])
+    ? pos[0][2] : '';
+  if (resD2 !== '') return resD2;
+  return undefined;
 }
 
 
